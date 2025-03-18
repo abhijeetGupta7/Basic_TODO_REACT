@@ -1,19 +1,22 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ToDoContext from "../../context/ToDoContext";
 
 function AddTodo() {
 
-    const [,setList]=useContext(ToDoContext)
+    const {list,dispatch}=useContext(ToDoContext)
     const [inputValue, setInputValue]=useState('');
 
     function handleAdd(todoData) {
         if(todoData) {
-            setList( (prevList) => {
-                return [...prevList , {id: prevList.length+1, todoData:todoData, isFinished:false}]; 
-            })
+            dispatch( {type: "add_todo", payload: {todoData:todoData}} );
             setInputValue('');
         }
     }
+
+    useEffect(()=>{
+        console.log(list);
+
+    },[list])
 
     return (
         <>

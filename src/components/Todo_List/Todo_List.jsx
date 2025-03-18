@@ -3,27 +3,18 @@ import Todo from "../Todo/Todo";
 import ToDoContext from "../../context/ToDoContext";
 
 function Todo_List() {
+    const { list, dispatch } = useContext(ToDoContext);
 
-    const [list,setList]=useContext(ToDoContext);
-
-    function onFinished(finished,todo) {
-        const updatedList = list.map((item) =>
-            item.id === todo.id ? { ...item, isFinished:finished } : item
-        );
-        setList(updatedList);
+    function onFinished(finished, todo) {
+        dispatch({ type: "change_finished", payload: { finished, todo } });
     }
 
     function onDelete(todo) {
-        const updatedList = list.filter( (item) => item.id!=todo.id );
-        setList(updatedList);
+        dispatch({ type: "delete_todo", payload: { todo } });
     }
 
-    function onEdit(editText,todo) {
-        const updatedList = list.map( (item) => {
-            if(item.id==todo.id) item.todoData=editText;
-            return item;
-        })
-        setList(updatedList); 
+    function onEdit(editText, todo) {
+        dispatch({ type: "edit_todo", payload: { todo, todoData:editText } });
     }
 
     return (
@@ -33,11 +24,11 @@ function Todo_List() {
                     <Todo
                         key={todo.id}
                         id={todo.id}
-                        todo={todo.todoData}
+                        todo={todo.todoData} 
                         isFinished={todo.isFinished}
-                        changeFinished={(finished) => { onFinished(finished,todo) }}
-                        onDelete={() => { onDelete(todo) } }
-                        onEdit={ (editText) => { onEdit(editText,todo) } }
+                        changeFinished={(finished) => onFinished(finished, todo)}
+                        onDelete={() => onDelete(todo)}
+                        onEdit={(editText) => onEdit(editText, todo)}
                     />
                 ))}
         </div>
