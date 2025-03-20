@@ -1,14 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import ToDoContext from "../../context/ToDoContext";
+import {  useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-function AddTodo() {
+function AddTodo( {add_todo} ) {
 
-    const {list,dispatch}=useContext(ToDoContext)
+    const list=useSelector( (state) => state.todo );
+
     const [inputValue, setInputValue]=useState('');
 
     function handleAdd(todoData) {
         if(todoData) {
-            dispatch( {type: "add_todo", payload: {todoData:todoData}} );
+            add_todo(todoData)
             setInputValue('');
         }
     }
