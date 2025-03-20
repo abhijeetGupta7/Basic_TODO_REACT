@@ -9,7 +9,7 @@ function AddTodo( {add_todo} ) {
 
     function handleAdd(todoData) {
         if(todoData) {
-            add_todo(todoData)
+            add_todo({todoText:todoData})
             setInputValue('');
         }
     }

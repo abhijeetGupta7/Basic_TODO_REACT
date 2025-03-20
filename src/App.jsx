@@ -3,7 +3,7 @@ import AddTodo from './components/AddTodo/AddTodo'
 import Todo_List from './components/Todo_List/Todo_List'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { add_todo, change_finished, delete_todo, edit_todo } from './actions/todoActions'
+import { add_todo, change_finished, delete_todo, edit_todo } from './slices/todoSlice'
 
 function App() {
 
